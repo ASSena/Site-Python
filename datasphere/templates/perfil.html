@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    <div class="container mt-5 d-flex justify-content-center">
+
+            <div class="card p-3">
+
+                <div class="d-flex align-items-center">
+
+                    <div class="image p-2">
+                        <img src=" {{ foto_perfil }}" class="rounded" width="170" >
+                    </div>
+
+                <div class="ml-3 w-100">
+
+                   <h4 class="mb-0 mt-0"> {{ current_user.username }}</h4>
+                   <span> {{ current_user.email }} </span>
+
+                   <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+
+                    <div class="d-flex flex-column Cursos">
+
+                        <span> Cursos</span>
+
+                            <span class="number1">{{ qtd_cursos }}</span>
+
+                    </div>
+
+                    <div class="d-flex flex-column Posts">
+
+                        <span> Posts </span>
+                        <span class="number2">{{current_user.contar_posts()}}</span>
+
+                    </div>
+                   </div>
+
+                   <div class="button mt-2 d-flex flex-row align-items-center   ">
+
+                   <a href="{{url_for('perfil_editar')}}" class="w-100">
+                       <button class="btn btn-dark w-100">Editar perfil</button>
+                   </a>
+
+                   </div>
+                </div>
+                </div>
+            </div>
+         </div>
+         <div class="row justify-content-center">
+            <div class="col col-4" style="text-align: center">
+                {% if form.username.data == None%}
+                    <h4><strong>Cursos</strong></h4>
+                    <hr>
+                {% endif %}
+                    {% for curso in lista %}
+                       <button type="button" class="btn btn-dark mt-1"  disabled><strong>{{ curso }}</strong></button>
+                    {% endfor %}
+            </div>
+         </div>
+
+
+
+{% block editar_perfil %}
+{% endblock%}
+{% endblock %}

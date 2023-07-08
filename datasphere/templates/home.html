@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+
+
+   {% block body %}
+
+    <div class="container mt-4">
+        <h1 style="color: gray">Posts dos Usuários</h1>
+        <hr>
+        {% for post in posts %}
+            <div class="row border mt-4 p-3 meupost">
+                <div class="col col-3 mt-5">
+                    <div class="image mx-auto" style="width: 150px;">
+                        <img src="{{ url_for('static', filename='fotos_perfil/{}'.format(post.autor.foto_perfil)) }}" class="rounded" width="150">
+                    </div>
+                    <div  class="text-center align-self-center"><strong>{{ post.autor.username }}</strong></div>
+                    <div class="row justify-content-center">
+                        <hr>
+                        {% for curso in post.autor.cursos.split(';') %}
+                            {% if curso == '' %}
+                                <button type="button" class="btn btn-dark mt-1" disabled>Curso Não Informado</button>
+                            {% else %}
+                                <button type="button" class="btn btn-dark mt-1" disabled>{{ curso }}</button>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col col-9">
+                    <a style="text-decoration: none" href="{{ url_for('editar_post', post_id=post.id) }}">
+                        <h3>{{ post.titulo }}
+                            <smile class="text-muted" style="font-size: 15px">
+                                - Data de criação: {{ post.data_criacao.strftime('%d/%m/%Y') }}
+                            </smile>
+                        </h3>
+                    </a>
+                    <p style="word-break: break-all;">{{ post.corpo }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
